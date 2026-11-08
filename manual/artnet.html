@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual de Art-Net · Control Remote Lx Pro</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<header><a href="index.html">← Elegir protocolo</a><h1>Manual de Art-Net</h1><p>Configuración y uso de la salida DMX por Art-Net.</p></header>
+<main>
+<nav id="indice" aria-label="Índice del protocolo">
+<h2>Contenido</h2>
+<ol><li><a href="#conexion">Configurar la conexión</a></li>
+<li><a href="#prueba">Comprobar la primera salida</a></li>
+<li><a href="#patch">Preparar el Patch y la biblioteca</a></li>
+<li><a href="#canal">Dar nivel, temporizar y grabar grupos</a></li>
+<li><a href="#fixtures">Ajustar los parámetros del aparato</a></li>
+<li><a href="#faders">Operar faders y submasters</a></li>
+<li><a href="#presets">Grabar y aplicar presets</a></li>
+<li><a href="#rdm">Preparar y configurar RDM</a></li>
+<li><a href="#rdm-operaciones">Buscar, identificar y vincular aparatos</a></li>
+<li><a href="#rdm-problemas">Resolver problemas de RDM</a></li>
+<li><a href="#diagnostico">Resolver problemas de salida</a></li></ol>
+</nav>
+<section id="conexion">
+<h2>Configurar la conexión</h2>
+<ol>
+<li>Conecta el iPhone o iPad a la red del nodo y permite el acceso a la red local en iOS.</li>
+<li>Abre <b>Conexión → Básico</b>. Elige el perfil o crea uno con <b>+ Nueva</b> y selecciona <b>Art-Net</b> en Protocolo.</li>
+<li>Escribe la <b>IP del nodo</b> o pulsa <b>Buscar dispositivos</b> y selecciónalo.</li>
+<li>En <b>Modo de envío</b> elige unicast para enviar a esa IP o broadcast para enviar a la red local. Conserva la IP individual del nodo para las consultas de gestión.</li>
+<li>En <b>Avanzado → Direccionamiento Art-Net 4</b>, escribe los <b>Port-Addresses activos · 0 a 32767</b> del nodo. Acepta comas y rangos. Toca fuera del campo o pulsa Enter para guardar.</li>
+<li>Comprueba que los universos y las salidas físicas del nodo coinciden. El Port-Address 0 corresponde al universo 1 de Patch; el 1 corresponde al universo 2.</li>
+</ol>
+<p>Si la búsqueda necesita otra IP o máscara de referencia, revisa <b>Avanzado → Red de búsqueda ArtNet</b>. Estos campos ajustan la búsqueda. La IP y máscara del iPhone se configuran en Ajustes → Wi-Fi.</p><p>Un universo contiene 512 direcciones DMX. Un canal de Pro L identifica el aparato que seleccionas. El Patch relaciona ese canal con el universo, la primera dirección y el modo del aparato.</p><figure>
+<img loading="lazy" src="07-rdm-artnet.png" alt="Port-Address 0 activo. Pro L lo representa como universo 1 en Patch.">
+<figcaption>Port-Address 0 activo. Pro L lo representa como universo 1 en Patch.</figcaption>
+</figure>
+<p><a href="#indice">Volver al índice del protocolo</a></p>
+</section>
+<section id="prueba">
+<h2>Comprobar la primera salida</h2>
+<ol><li>Usa un dimmer con una dirección conocida. Selecciona <b>Patch → 1:1</b>.</li><li>Consulta <b>Direccionamiento</b> para identificar el canal que corresponde a su universo y dirección.</li><li>Desde <b>Canal</b> aplica un nivel bajo, comprueba la salida y devuelve el canal a cero.</li><li>Si no responde, compara el universo, la dirección y el modo del aparato con la configuración del nodo.</li></ol>
+<p><a href="#indice">Volver al índice del protocolo</a></p>
+</section>
+<section id="patch">
+<h2>Preparar el Patch y la biblioteca</h2>
+<p>En <b>1:1</b> cada canal controla una dirección. Con varios universos activos, consulta <b>Direccionamiento</b> para ver qué bloque de canales corresponde a cada universo. Cambiar a 1:1 conserva el patch personalizado.</p>
+<ol><li>Para un móvil o un aparato con varios parámetros, selecciona <b>Personalizado</b>. Comprueba en el aparato su modo DMX y dirección inicial.</li><li>Abre <b>Mi biblioteca LX</b>. Puedes crear una personalidad con los parámetros y offsets del manual del aparato, o importar un archivo local GDTF o .lxfixture. Revisa la declaración de derechos al importar. La edición comercial parte de una biblioteca local vacía.</li><li>En <b>Buscar y añadir aparato</b> selecciona el modo exacto. Indica canal, universo, dirección inicial y cantidad. En Opciones avanzadas puedes ajustar la parte y la etiqueta. Pulsa <b>Guardar</b>.</li><li>Comprueba el espacio ocupado. Un modo de 12 direcciones que empieza en 101 usa 101–112. El siguiente aparato cabe a partir de 113. Toca una fila para corregirla o usa su control de despatch para retirarla.</li></ol><p>Duplica una personalidad en uso si necesitas otra variante. Exporta las personalidades propias como .lxfixture desde la biblioteca para reutilizarlas.</p><figure><img loading="lazy" src="04-patch.png" alt="Patch. Lee juntos el canal, el modo y la dirección antes de guardar."><figcaption>Patch. Lee juntos el canal, el modo y la dirección antes de guardar.</figcaption></figure>
+<p><a href="#indice">Volver al índice del protocolo</a></p>
+</section>
+<section id="canal">
+<h2>Dar nivel, temporizar y grabar grupos</h2>
+<p>Para este protocolo, para llevar los canales 1 a 4 al 50 %, introduce <b>1 → Thru → 4 → @ → 5 → 0 → Enter</b>. Usa + o − para añadir o excluir canales. Full aplica el máximo y Out lleva la selección a cero.</p><p>Para hacer un fundido, pulsa <b>Time</b>, introduce los segundos y elige <b>Aplicar Time</b> antes de cambiar el nivel. Admite 0–999 segundos y decimales. El tiempo sigue activo durante la sesión. Vuelve a 0 para recuperar la respuesta inmediata.</p>
+<p>Para guardar un grupo, introduce <b>1 → Thru → 4 → Record → Group → 1 → Enter</b>. Recupéralo con <b>Group → 1 → Enter</b>. Si hay un acceso rápido libre, la app lo asocia al grupo. Vaciar ese acceso conserva la memoria. Revisa su nivel y los tiempos de entrada y salida antes de activarlo.</p><p>En salida DMX, Clear All cancela los fundidos pendientes.</p><figure><img loading="lazy" src="01-control-canal.png" alt="Canal. El teclado disponible depende del protocolo y de la mesa."><figcaption>Canal. El teclado disponible depende del protocolo y de la mesa.</figcaption></figure>
+<p><a href="#indice">Volver al índice del protocolo</a></p>
+</section>
+<section id="fixtures">
+<h2>Ajustar los parámetros del aparato</h2>
+<ol><li>Abre <b>Fixtures</b> y selecciona un aparato del patch. Ajusta Intensidad. Si aparecen únicamente niveles básicos, comprueba el modo y la personalidad elegidos.</li><li>En DMX directo, para un aparato con Pan y Tilt, toca o arrastra la cuadrícula XY. La derecha aumenta Pan y arriba aumenta Tilt. Abrir el panel coloca el cursor en el centro sin mover el aparato. <b>Centrar aparato</b> sí envía movimiento. <b>Liberar posición</b> retira ambos ajustes manuales.</li><li>En Color, usa <b>Picker</b> para mezclar RGB o CMY, <b>Emisores</b> para ajustar componentes como blanco o ámbar, y <b>Ruedas</b> para elegir colores físicos. Un nuevo color del picker apaga los emisores adicionales. Ajusta esos emisores después de elegir el color.</li><li>Explora el resto de parámetros disponibles en el modo seleccionado, como zoom o recorte.</li></ol>
+<p><a href="#indice">Volver al índice del protocolo</a></p>
+</section>
+<section id="faders">
+<h2>Operar faders y submasters</h2>
+<p>Abre <b>Faders</b> y elige la vista de canales o submasters. Localiza la tira por su número y desliza el fader mientras compruebas la salida. En Submasters, toca el nombre para editar su etiqueta. Mantén <b>Bump</b> para una pulsación momentánea y suéltalo para terminarla.</p><figure>
+<img loading="lazy" src="03-faders.png" alt="Vista de submasters en el perfil Art-Net. Los controles de salida DMX también se utilizan en sACN.">
+<figcaption>Vista de submasters en el perfil Art-Net. Los controles de salida DMX también se utilizan en sACN.</figcaption>
+</figure>
+<p><a href="#indice">Volver al índice del protocolo</a></p>
+</section>
+<section id="presets">
+<h2>Grabar y aplicar presets</h2>
+<ol><li>Selecciona fixtures con personalidad LX y ajusta los parámetros que quieras recuperar.</li><li>Abre <b>Presets</b>, elige la familia de parámetros o All Preset y pulsa <b>Grabar / editar</b>. Comprueba la selección que muestra el panel.</li><li>Introduce número y nombre y pulsa <b>Grabar preset</b>. Para sustituir una memoria existente, selecciona su número y pulsa <b>Actualizar valores</b>. Para cambiar solo la etiqueta, usa <b>Guardar nombre</b>.</li><li>Sal de edición, selecciona aparatos compatibles y toca la memoria para aplicarla. Puedes asociar un All Preset grabado a un acceso rápido.</li></ol>
+<p><a href="#indice">Volver al índice del protocolo</a></p>
+</section>
+<section id="rdm">
+<h2>Preparar y configurar RDM</h2>
+<p>La gestión RDM de este perfil utiliza ArtRdm por UDP 6454.</p><h3>Preparar el nodo y los aparatos</h3><ol>
+<li>Conecta el dispositivo con Pro L y el nodo a una red en la que puedan comunicarse por IP. En iOS permite el acceso a la red local.</li>
+<li>En la configuración del nodo, habilita la salida DMX y RDM en el puerto conectado a los aparatos. Consulta el manual del modelo para localizar esas opciones.</li>
+<li>Comprueba que los aparatos admiten RDM y que RDM está habilitado si ofrecen ese ajuste. Los splitters de la línea también deben permitir el retorno RDM.</li>
+<li>Anota la IP del nodo, el puerto físico y el universo que recibe ese puerto.</li>
+</ol><h3>Configurar la ruta de gestión</h3><ol>
+<li>Abre <b>Conexión → Básico</b>, elige el perfil activo y selecciona <b>Art-Net</b> en Protocolo.</li>
+<li>Escribe la <b>IP del nodo</b>. Puedes usar <b>Buscar dispositivos</b> y seleccionar el nodo. Aunque envíes los niveles por broadcast, conserva una IP individual válida para las consultas RDM.</li>
+<li>Entra en <b>Avanzado → Direccionamiento Art-Net 4</b>. En <b>Port-Addresses activos · 0 a 32767</b>, indica los Port-Addresses de los puertos que quieras gestionar. Introduce varios separados por comas y toca fuera del campo o pulsa Enter para guardarlos.</li>
+<li>Comprueba la numeración del nodo. En Pro L el Port-Address Art-Net 0 corresponde al universo 1 mostrado en Patch; el 1 corresponde al universo 2. NET 0, SUB-NET 0 y UNIVERSE 0 forman el Port-Address 0.</li>
+<li>Abre <b>RDM</b> en la barra inferior y pulsa <b>Buscar equipos RDM</b>. La búsqueda consulta las rutas ArtRdm de los universos activos. Si faltan aparatos tras cambiar el cableado, prueba <b>Búsqueda profunda</b> para reconstruir las tablas RDM del nodo.</li>
+</ol>
+<p><b>Ejemplo de prueba.</b> Configura el puerto físico 1 del nodo con Art-Net Port-Address 0 y RDM habilitado. Introduce 0 en la lista de Pro L. Un aparato que devuelve la dirección DMX 101 aparecerá vinculado a 1/101 en Patch. Adapta estos valores al puerto y a la configuración reales del nodo.</p>
+<figure><img loading="lazy" src="07-rdm-artnet.png" alt="Direccionamiento Art-Net 4 en Conexión avanzada, con el Port-Address 0 activo"><figcaption>Conexión → Avanzado. El Port-Address debe coincidir con el puerto del nodo que tiene los aparatos RDM.</figcaption></figure>
+<p><a href="#indice">Volver al índice del protocolo</a></p>
+</section>
+<section id="rdm-operaciones">
+<h2>Buscar, identificar y vincular aparatos</h2>
+<ol>
+<li>Pulsa <b>Buscar equipos RDM</b> y espera el resultado. Usa el filtro <b>En línea</b> para ver los aparatos que han respondido en la búsqueda. <b>Solo caché</b> muestra los guardados de consultas anteriores.</li>
+<li>Abre la fila del aparato y consulta su UID, nombre, dirección y modo. En <b>Test de identificación</b>, pulsa <b>Test 10 s</b> para localizarlo físicamente. Puedes terminar antes con <b>Detener test</b>.</li>
+<li>Si el panel muestra únicamente los datos básicos, pulsa <b>Preparar</b> para solicitar los modos y controles que comunique el aparato. Usa <b>Actualizar</b> para volver a leerlos.</li>
+<li>Para modificar el equipo, introduce <b>Dirección DMX</b>, elige <b>Modo / personalidad</b> y pulsa <b>Aplicar cambios</b>. Esos cambios actúan sobre el aparato. Espera el mensaje de confirmación y comprueba los valores devueltos.</li>
+<li>Comprueba que el modo cabe en el universo. Por ejemplo, un modo de 12 direcciones que empieza en 101 ocupa 101–112. El siguiente aparato debe tener un rango libre.</li>
+<li>Para editar la etiqueta, escribe <b>Nombre del aparato</b> y pulsa <b>Cambiar nombre</b>. El equipo debe admitir esa operación.</li>
+<li>En <b>Añadir al patch</b>, introduce el canal y la parte y pulsa <b>Añadir al Patch</b>. Si ya existe un vínculo para ese UID, usa <b>Actualizar vínculo</b>. Revisa el resultado en <b>Ver en Patch</b>.</li>
+</ol>
+<p>La vinculación crea la relación local entre canal y aparato utilizando los datos que devuelve RDM. Si faltan parámetros o slots, completa la personalidad en Patch para disponer de los controles necesarios en Fixtures. Si una operación falla y Pro L pide volver a leer el aparato, actualiza sus datos antes de continuar.</p>
+<figure><img loading="lazy" src="09-rdm-aparato.png" alt="Ficha RDM de un aparato con test de identificación, dirección, personalidad y vínculo al patch"><figcaption>Ficha RDM de demostración. La disponibilidad de modos, slots y cambios depende de lo que admita el aparato.</figcaption></figure>
+<p><a href="#indice">Volver al índice del protocolo</a></p>
+</section>
+<section id="rdm-problemas">
+<h2>Resolver problemas de RDM</h2>
+<dl>
+<dt><b>Buscar equipos RDM está deshabilitado.</b></dt><dd>Comprueba la IP individual del nodo y los Port-Addresses activos en Conexión → Avanzado.</dd>
+<dt><b>Los niveles funcionan, pero la búsqueda RDM no encuentra aparatos.</b></dt><dd>Comprueba RDM en la salida del nodo, la compatibilidad del aparato y el retorno a través de la línea DMX y los splitters. Revisa el Port-Address de gestión. Después ejecuta Búsqueda profunda.</dd>
+
+<dt><b>El aparato aparece en el universo equivocado.</b></dt><dd>Revisa la conversión de Port-Address a universo de Patch y su correspondencia con los puertos físicos.</dd>
+<dt><b>La lista muestra equipos que ya están desconectados.</b></dt><dd>Selecciona En línea tras una búsqueda nueva. Los datos guardados siguen disponibles en Solo caché. Borrar caché elimina ese inventario guardado.</dd>
+<dt><b>Un cambio de dirección o modo se rechaza.</b></dt><dd>Lee el mensaje de Pro L, comprueba que el rango cabe hasta la dirección 512 y que no se solapa con otro aparato del Patch. Vuelve a leer los datos del equipo y verifica que el modelo permite la escritura solicitada.</dd>
+</dl>
+<p><a href="#indice">Volver al índice del protocolo</a></p>
+</section>
+<section id="diagnostico">
+<h2>Resolver problemas de salida</h2>
+<dl><dt><b>El nodo recibe datos pero el aparato equivocado se mueve.</b></dt><dd>Compara universo, puerto físico, dirección inicial y modo del aparato con la fila de Patch. Si intensidad mueve otro atributo, verifica los offsets de la personalidad.</dd><dt><b>El color es correcto pero apenas hay luz.</b></dt><dd>Revisa la intensidad, el obturador si existe y los maestros que afectan a ese aparato. Color e intensidad tienen controles independientes.</dd></dl><p>Si falta un parámetro, revisa la personalidad y el modo del aparato. La cuadrícula XY requiere seleccionar un solo fixture con Pan y Tilt.</p>
+<p><a href="#indice">Volver al índice del protocolo</a></p>
+</section>
+</main>
+<footer><a href="index.html">Elegir otro protocolo</a></footer>
+</body>
+</html>
