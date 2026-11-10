@@ -18,6 +18,7 @@
 <tr><td>Consultar GDTF Share por marca y modelo</td><td>iPhone/iPad</td></tr>
 <tr><td>Crear desde GDTF y elegir un modo como plantilla</td><td>iPhone/iPad</td></tr>
 <tr><td>Buscar modelos, desplegar modos y usar favoritos</td><td>iPhone/iPad y Android</td></tr>
+<tr><td>Conversión GDTF de rangos con nombre y atributos de recorte reconocidos</td><td>iPhone/iPad</td></tr>
 </tbody></table>
 <p>La versión instalada debe incluir los botones que se describen. En Android puedes descargar el archivo GDTF mediante tu navegador y seleccionarlo desde la importación local.</p>
 <p>Este recorrido utiliza el Patch local de Art-Net, sACN y OSC genérico. Con ETC Eos, el Patch consulta la mesa. El perfil grandMA3 utiliza los Fixture IDs y el show de la consola para sus controles.</p>
@@ -101,7 +102,7 @@
 <section id="revisar-parametros">
 <h2>Revisar los controles después de importar</h2>
 <p>Abre Fixtures y selecciona el aparato patchado. Comprueba intensidad y los controles disponibles en el modo. El importador conserva offsets, resolución y los datos que reconoce del archivo. Los atributos con correspondencia admitida se presentan como controles específicos; otros pueden aparecer como canales DMX.</p>
-<p>Los rangos con nombres definidos de forma inequívoca en el GDTF pueden aparecer como opciones de selección. Revisa esas etiquetas con el manual del aparato. Los parámetros de recorte compatibles, incluidos los atributos de cuchillas y giro reconocidos, pueden alimentar los controles de recorte. La disponibilidad depende de cómo esté descrito el modo.</p>
+<p>En la versión actual de iPhone/iPad, los rangos con nombres definidos de forma inequívoca en el GDTF pueden aparecer como opciones de selección. Revisa esas etiquetas con el manual del aparato. Los parámetros de recorte compatibles, incluidos los atributos de cuchillas y giro reconocidos, pueden alimentar los controles de recorte. La disponibilidad depende de cómo esté descrito el modo.</p>
 <p>Las personalidades convertidas desde GDTF quedan guardadas para uso local. El botón Exportar se muestra para las personalidades que permiten esa operación en la biblioteca. Conserva el GDTF de origen para reutilizarlo en otro dispositivo.</p>
 <p><a href="#indice">Volver al índice de GDTF</a></p>
 </section>
@@ -110,7 +111,7 @@
 <dl>
 <dt><b>El archivo está guardado en la biblioteca y no aparece como aparato patchado.</b></dt><dd>Abre Buscar y añadir aparato, selecciona uno de sus modos, completa el formulario y pulsa Guardar.</dd>
 <dt><b>El modelo aparece y falta el modo que necesitas.</b></dt><dd>Revisa la revisión GDTF elegida y el modo físico del aparato. En una personalidad creada con Crear desde GDTF se conserva el modo que seleccionaste al crear la plantilla.</dd>
-<dt><b>La importación rechaza el archivo.</b></dt><dd>Lee el mensaje. El importador admite archivos de hasta 50 MB, y el modo debe caber en un universo de 512 direcciones. Los modos con varios bloques DMX, offsets solapados o descripciones inválidas pueden requerir otra personalidad o una definición propia.</dd>
+<dt><b>La importación rechaza el archivo.</b></dt><dd>Lee el mensaje. El archivo GDTF tiene un límite de 50 MB; los archivos JSON o .lxfixture tienen un límite de 5 MB. El modo debe caber en un universo de 512 direcciones. Los modos con varios bloques DMX, offsets solapados o descripciones inválidas pueden requerir otra personalidad o una definición propia.</dd>
 <dt><b>GDTF Share no deja escribir el modelo.</b></dt><dd>Consulta el catálogo y selecciona primero la marca. Después estará disponible el campo Modelo.</dd>
 <dt><b>Mi biblioteca LX no encuentra un nombre que sí aparece en GDTF Share.</b></dt><dd>Importa la revisión para guardarla en el dispositivo. Después busca por una parte del nombre local del modelo.</dd>
 <dt><b>Un aparato de varios canales solo muestra controles básicos.</b></dt><dd>Comprueba el modo, el footprint y los canales importados. Algunos atributos se conservan como DMX. Utiliza una copia editable para completar los controles que necesites según el manual del aparato.</dd>
