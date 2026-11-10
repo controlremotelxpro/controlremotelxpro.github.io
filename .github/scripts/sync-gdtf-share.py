@@ -63,11 +63,26 @@ def sync(root, selected):
     previous = json.loads(index.read_bytes())["fixtures"] if index.exists() else []
     known = {row["rid"]: row for row in previous}
     rows = []
-    for item in listing["list"]:
+    revisions = listing["list"]
+    available = {int(item["rid"]) for item in revisions}
+    for rid in sorted(selected - available):
+        print(f"La API no incluye la revisión {rid}.", flush=True)
+    # The initial Pro L connection test uses an older Robin Tetra2 revision.
+    if selected == {76822} and 76822 not in available:
+        alternatives = [item for item in revisions
+                        if "robe" in item["manufacturer"].casefold()
+                        and item["fixture"].casefold().replace(" ", "") in {"robintetra2", "tetra2"}
+                        and int(item["filesize"]) <= LIMIT]
+        if alternatives:
+            latest = max(alternatives, key=lambda item: (item["uploader"] == "Manuf.", int(item["lastModified"])))
+            selected = {int(latest["rid"])}
+            print(f'Prueba con la revisión disponible del Tetra2: {latest["rid"]}', flush=True)
+    for item in revisions:
         rid = int(item["rid"])
         if selected and rid not in selected:
             continue
         if int(item["filesize"]) > LIMIT:
+            print(f"Revisión {rid} omitida por superar 50 MB.", flush=True)
             continue
         old = known.get(rid)
         stamp = str(item["lastModified"])
@@ -85,6 +100,12 @@ def sync(root, selected):
             metadata["file"] = filename
         rows.append(dict(metadata, rid=rid, modified=stamp, **{k: item[k] for k in
                          ("manufacturer", "fixture", "revision", "uploader")}))
+    if not rows:
+        candidates = [item for item in revisions if item["uploader"] == "Manuf."
+                      and 0 < int(item["filesize"]) < 2_000_000]
+        for item in candidates[:5]:
+            print(f'Alternativa disponible: {item["rid"]} {item["manufacturer"]} {item["fixture"]}')
+        raise RuntimeError("Ningún perfil importable. Revisa los identificadores indicados arriba.")
     publish(index, json.dumps({"updated": int(time.time()), "fixtures": rows}).encode())
     active = {row["file"] for row in rows}
     for row in previous:
