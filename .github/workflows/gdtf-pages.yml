@@ -1,5 +1,10 @@
 name: Publicar biblioteca GDTF
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'manual/**'
   workflow_dispatch:
   schedule:
     - cron: '17 */2 * * *'
