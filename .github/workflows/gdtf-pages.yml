@@ -1,0 +1,58 @@
+name: Publicar biblioteca GDTF
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */2 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: gdtf-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar web existente
+        run: |
+          mkdir _site
+          git archive HEAD | tar -x -C _site --exclude='.github' --exclude='.git*'
+      - uses: actions/cache/restore@v4
+        id: mirror
+        with:
+          path: _site/gdtf
+          key: gdtf-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: gdtf-v1-
+      - name: Sincronizar revisiones seleccionadas
+        env:
+          GDTF_USER: ${{ secrets.GDTF_USER }}
+          GDTF_PASSWORD: ${{ secrets.GDTF_PASSWORD }}
+          REVISIONS: ${{ vars.GDTF_REVISION_IDS }}
+        shell: bash
+        run: |
+          read -ra ids <<< "$REVISIONS"
+          (( ${#ids[@]} > 0 )) || { echo 'Configura GDTF_REVISION_IDS con los números de revisión separados por espacios'; exit 1; }
+          args=()
+          for id in "${ids[@]}"; do
+            [[ "$id" =~ ^[0-9]+$ ]] || exit 1
+            args+=(--rid "$id")
+          done
+          python3 .github/scripts/sync-gdtf-share.py _site/gdtf "${args[@]}"
+          test "$(du -sm _site | cut -f1)" -lt 950
+      - uses: actions/cache/save@v4
+        with:
+          path: _site/gdtf
+          key: ${{ steps.mirror.outputs.cache-primary-key }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/deploy-pages@v4
