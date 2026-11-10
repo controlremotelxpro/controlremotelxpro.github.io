@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="manual.css">
 </head>
 <body>
-<header><a href="index.html">← Elegir protocolo</a><h1>Manual de sACN</h1><p>Configuración y uso de la salida DMX por sACN.</p></header>
+<header><a href="index.html">← Elegir protocolo</a><h1>Manual de sACN</h1><p>Configuración y uso de la salida DMX por sACN.</p><p>Guía revisada el 10 de noviembre de 2026.</p></header>
 <main>
 <nav id="indice" aria-label="Índice del protocolo">
 <h2>Contenido</h2>
@@ -68,6 +68,7 @@
 </section>
 <section id="presets">
 <h2>Grabar y aplicar presets</h2>
+<p>Los presets se comparten entre Art-Net y sACN. Cada memoria aplica los parámetros de su sección a las personalidades LX compatibles.</p>
 <ol><li>Selecciona fixtures con personalidad LX y ajusta los parámetros que quieras recuperar.</li><li>Abre <b>Presets</b>, elige la familia de parámetros o All Preset y pulsa <b>Grabar / editar</b>. Comprueba la selección que muestra el panel.</li><li>Introduce número y nombre y pulsa <b>Grabar preset</b>. Para sustituir una memoria existente, selecciona su número y pulsa <b>Actualizar valores</b>. Para cambiar solo la etiqueta, usa <b>Guardar nombre</b>.</li><li>Sal de edición, selecciona aparatos compatibles y toca la memoria para aplicarla. Puedes asociar un All Preset grabado a un acceso rápido.</li></ol>
 <p><a href="#indice">Volver al índice del protocolo</a></p>
 </section>
@@ -124,6 +125,7 @@
 </section>
 <section id="diagnostico">
 <h2>Resolver problemas de salida</h2>
+<h3>Estado de la conexión</h3><p>En Conexión despliega <b>Colores del indicador de conexión</b>. Verde significa que el equipo respondió a la comprobación. Ámbar indica que su presencia sigue sin confirmar. Rojo indica configuración incompleta, red no disponible o un error de conexión o envío. Comprueba la recepción en el equipo y la respuesta del aparato al operar los controles.</p>
 <dl><dt><b>El nodo recibe datos pero el aparato equivocado se mueve.</b></dt><dd>Compara universo, puerto físico, dirección inicial y modo del aparato con la fila de Patch. Si intensidad mueve otro atributo, verifica los offsets de la personalidad.</dd><dt><b>El color es correcto pero apenas hay luz.</b></dt><dd>Revisa la intensidad, el obturador si existe y los maestros que afectan a ese aparato. Color e intensidad tienen controles independientes.</dd></dl><p>Si falta un parámetro, revisa la personalidad y el modo del aparato. La cuadrícula XY requiere seleccionar un solo fixture con Pan y Tilt.</p>
 <p><a href="#indice">Volver al índice del protocolo</a></p>
 </section>

@@ -7,13 +7,13 @@
 <link rel="stylesheet" href="manual.css">
 </head>
 <body>
-<header><a href="index.html">← Elegir protocolo</a><h1>Manual de OSC</h1><p>Elige el capítulo de tu mesa o receptor después de configurar la conexión.</p></header>
+<header><a href="index.html">← Elegir protocolo</a><h1>Manual de OSC</h1><p>Elige el capítulo de tu mesa o receptor después de configurar la conexión. Actualizado el 10 de noviembre de 2026 con LXSelection, el teclado grandMA3 y los controles LT.</p></header>
 <main>
 <nav id="indice" aria-label="Índice del protocolo">
 <h2>Contenido</h2>
 <ol><li><a href="#conexion">Configurar la conexión OSC</a></li>
 <li><a href="#eos">Perfil ETC Eos</a></li>
-<li><a href="#grandma3">Perfil grandMA3</a></li>
+<li><a href="#grandma3">Perfil grandMA3 y plugin LXSelection</a></li>
 <li><a href="#lt">Perfil LT</a></li>
 <li><a href="#generic">Perfil OSC genérico</a></li>
 <li><a href="#diagnostico">Resolver problemas de OSC</a></li></ol>
@@ -46,14 +46,97 @@
 </section>
 <section id="grandma3">
 <h2>Perfil grandMA3</h2>
-<p>Activa la entrada OSC por UDP y <b>Receive Command</b>. Copia el prefijo de la mesa en la app. Configura la página y el primer ejecutor para los 20 faders. En el teclado prepara la orden con el Fixture ID y pulsa <b>Please</b> para enviarla. Verifica el resultado en la consola.</p>
-<h3>Fixtures y ejecutores</h3><p>En Fixtures elige la selección actual de la mesa o teclado, Fixtures manuales o Grupo de la mesa. Introduce los IDs o el número de grupo cuando corresponda y ajusta los controles disponibles. En Faders, cada tira corresponde a un ejecutor desde el primer número de la página configurada en Conexión.</p><p>Comprueba los cambios en la mesa. Este perfil envía sus operaciones sin confirmar los estados de la consola por retorno. Grand Master queda sin asignar en este perfil.</p>
+<p>Este perfil permite usar el teclado de comandos, controlar atributos en Fixtures y manejar 20 ejecutores. El plugin opcional <b>LXSelection</b> permite consultar los aparatos seleccionados en la mesa y los atributos que reconoce esta consulta.</p>
+<nav aria-label="Contenido grandMA3"><ul>
+<li><a href="#ma3-conexion">Conectar la app y la mesa</a></li>
+<li><a href="#ma3-teclado">Usar el teclado</a></li>
+<li><a href="#ma3-fixtures">Controlar Fixtures</a></li>
+<li><a href="#ma3-plugin">Instalar LXSelection</a></li>
+<li><a href="#ma3-retorno">Configurar el retorno del plugin</a></li>
+<li><a href="#ma3-lectura">Leer e interpretar la selección</a></li>
+<li><a href="#ma3-ejecutores">Configurar los ejecutores</a></li>
+<li><a href="#ma3-problemas">Resolver problemas</a></li>
+</ul></nav>
+<h3 id="ma3-conexion">Conectar la app y la mesa</h3>
+<ol>
+<li>Conecta el móvil y la mesa o el ordenador con grandMA3 onPC a una red accesible entre ambos.</li>
+<li>En Pro L abre <b>Conexión → Básico</b>, crea o elige un perfil, selecciona <b>OSC</b> y el perfil <b>grandMA3</b>. Escribe la IP de la mesa o del ordenador.</li>
+<li>En <b>Conexión → Avanzado → Puerto OSC del receptor</b>, indica el puerto UDP de entrada de grandMA3. El perfil propone 8000.</li>
+<li>En grandMA3 abre <b>Menu → In &amp; Out → OSC</b>, selecciona la interfaz de red correcta y activa <b>Enable Input</b>. En la línea de entrada elige UDP, el mismo puerto de la app, <b>Receive</b> y <b>Receive Command</b>.</li>
+<li>Si la línea tiene prefijo, cópialo en <b>Prefijo OSC de la mesa (sin barras)</b> en Pro L. Comprueba la selección y envía una orden de prueba sobre un fixture conocido.</li>
+</ol>
+<p>Las opciones de entrada, salida, interfaz, prefijo y puerto se configuran en el menú OSC de grandMA3. Consulta la documentación de la versión de mesa que utilizas. <a href="https://help.malighting.com/grandMA3/2.4/HTML/remote_inputs_osc.html" target="_blank" rel="noopener noreferrer">Manual oficial de OSC de grandMA3</a>.</p>
+<h3 id="ma3-teclado">Usar el teclado</h3>
+<p>En <b>Canal</b>, las teclas de objetos y programación preparan la orden que muestra <b>ORDEN ACTUAL</b>. Por ejemplo, pulsa <b>Fixture → 1 → At → 5 → 0 → Please</b> para solicitar el 50 % del fixture 1. <b>Please</b> envía el borrador a la mesa.</p>
+<p><b>Clear</b>, <b>Next</b>, <b>Prev</b> y las teclas de modo ejecutan su acción directamente. <b>Full</b> y <b>Zero</b> envían el nivel correspondiente. <b>Esc</b> borra el borrador de la app. <b>MA</b> aplica el atajo a la siguiente tecla. En <b>Más</b> puedes editar la orden y acceder a otras funciones.</p>
+<p>Los botones inferiores <b>Go−</b>, <b>Pause</b> y <b>Go+</b> actúan sobre el ejecutor seleccionado en la mesa. Comprueba el efecto y los modos activos en grandMA3 antes de continuar.</p>
+<figure><img loading="lazy" src="10-grandma3-teclado.png" alt="Teclado actual de grandMA3 con Please, MA, Más y controles de reproducción"><figcaption>Teclado de grandMA3. El borrador se envía con Please; las teclas directas actúan al pulsarlas.</figcaption></figure>
+<h3 id="ma3-fixtures">Controlar Fixtures</h3>
+<ol>
+<li>Abre <b>Fixtures</b> y elige <b>Selección de la mesa / teclado</b>, <b>Fixtures manuales</b> o <b>Grupo de la mesa</b>. La primera opción actúa sobre la selección vigente en grandMA3. En manual escribe los Fixture IDs, por ejemplo <code>1 + 3 Thru 8</code>; para un grupo introduce su número.</li>
+<li>Ajusta <b>Intensidad</b> con su encoder. Para <b>Posición</b>, arrastra la cuadrícula XY o ajusta los ejes. <b>Centrar aparato</b> solicita Pan y Tilt al 50 %.</li>
+<li>En <b>Color</b>, selecciona el <b>Color Readout de la mesa</b> que usa tu usuario, RGB o CMY, antes de usar el picker o los emisores. La app envía los atributos <code>ColorRGB_R</code>, <code>ColorRGB_G</code> y <code>ColorRGB_B</code> con la conversión correspondiente.</li>
+<li>Para otros parámetros abre <b>Otros atributos</b>, escribe su nombre exacto, por ejemplo <code>Zoom</code>, <code>Focus</code> o <code>Iris</code>, y pulsa <b>Añadir control</b>. El aparato debe disponer de ese atributo en el show.</li>
+</ol>
+<p>Los porcentajes de estos controles muestran los valores solicitados desde Pro L. La lectura opcional de LXSelection devuelve la selección y una lista de atributos reconocidos. Para comprobar los valores actuales de los parámetros, consulta la mesa. Al cambiar el tipo de selección se reinician los valores locales mostrados.</p>
+<h3 id="ma3-plugin">Instalar el plugin opcional LXSelection</h3>
+<p>Necesitas una versión de Pro L que muestre <b>Consultar selección con plugin opcional</b> dentro de Fixtures. La instalación se realiza en la mesa o en grandMA3 onPC.</p>
+<p><a href="https://controlremotelxpro.github.io/plugins/grandma3/LXSelection.zip">Descargar LXSelection (.zip)</a> · <a href="https://controlremotelxpro.github.io/plugins/grandma3/index.html">Abrir la guía de instalación</a>.</p>
+<ol>
+<li>Descomprime el ZIP y conserva juntos <code>LXSelection.xml</code> y <code>LXSelection.lua</code>.</li>
+<li>Cópialos en <code>gma3_library/datapools/plugins</code> de la instalación, o en <code>grandMA3/gma3_library/datapools/plugins</code> de una memoria USB.</li>
+<li>En el <b>pool Plugins del DataPool activo</b>, abre el menú de importación de una casilla libre, selecciona la unidad y el archivo <code>LXSelection.xml</code> e impórtalo.</li>
+<li>Conserva el nombre exacto <b>LXSelection</b>. Revisa que su componente Lua se haya cargado y guarda el show.</li>
+</ol>
+<p>También puedes crear un plugin llamado LXSelection y pegar el contenido de <code>LXSelection.lua</code> en su primer componente Lua. El funcionamiento del pool y del editor se describe en la documentación oficial. <a href="https://help.malighting.com/grandMA3/2.4/HTML/plugins.html" target="_blank" rel="noopener noreferrer">Manual oficial de plugins de grandMA3</a>.</p>
+<h3 id="ma3-retorno">Configurar el retorno del plugin</h3>
+<ol>
+<li>En grandMA3, dentro de <b>In &amp; Out → OSC</b>, activa <b>Enable Output</b>.</li>
+<li>Crea o configura una línea UDP de salida dirigida a la <b>IP del móvil</b>. Activa <b>Send</b> y deja vacío el prefijo de esa línea.</li>
+<li>Configura su puerto con el puerto de escucha del perfil de Pro L. Un perfil nuevo utiliza <b>8001</b>. Para seguir el ejemplo siguiente, crea un perfil nuevo; los perfiles reutilizados conservan su puerto de escucha anterior.</li>
+<li>Abre el componente Lua de LXSelection y comprueba <code>local outputLine = 1</code>. Ese número debe ser el de la línea OSC que apunta al móvil. Si utilizas otra línea, cambia el número y guarda el componente y el show.</li>
+</ol>
+<table><thead><tr><th>Sentido del ejemplo</th><th>Destino</th><th>Puerto UDP</th></tr></thead><tbody><tr><td>Pro L → grandMA3</td><td>IP de la mesa u onPC</td><td>8000</td></tr><tr><td>grandMA3 → Pro L</td><td>IP del móvil</td><td>8001 en un perfil nuevo</td></tr></tbody></table>
+<p>El puerto de entrada de grandMA3 y el puerto de retorno son ajustes independientes. <code>outputLine</code> identifica una línea de la tabla OSC. Conserva en la línea de retorno el prefijo vacío que requiere la respuesta de LXSelection.</p>
+<h3 id="ma3-lectura">Leer e interpretar la selección</h3>
+<ol>
+<li>Selecciona los aparatos en grandMA3, o prepara su selección desde el teclado de Pro L.</li>
+<li>En Pro L abre <b>Fixtures → Selección de la mesa / teclado</b>.</li>
+<li>Despliega <b>Consultar selección con plugin opcional</b> y pulsa <b>Leer selección de la mesa</b>.</li>
+<li>Espera la respuesta y consulta cada fila. Repite la lectura después de cambiar la selección en la mesa.</li>
+</ol>
+<p>La respuesta muestra el <b>Fixture ID</b> cuando existe, el <b>índice de patch</b> interno y los atributos reconocidos entre <b>Dimmer, Pan, Tilt, ColorRGB_R, ColorRGB_G, ColorRGB_B, Zoom, Focus e Iris</b>. El índice ayuda a distinguir subfixtures que comparten FID. La consulta contempla hasta <b>32 elementos</b>; si la selección es mayor aparece <b>Primeros 32 elementos de la selección</b>. Una selección sin elementos devuelve <b>Selección vacía</b>. Una fila sin coincidencias puede corresponder a un aparato con otros atributos.</p>
+<p>La lectura es una instantánea solicitada con el botón. El plugin consulta la selección y los atributos disponibles mediante la API de grandMA3. El control de niveles sigue realizándose al operar los controles de la app.</p>
+<figure><img loading="lazy" src="11-grandma3-seleccion.png" alt="Consulta opcional LXSelection con dos filas de demostración y sus atributos"><figcaption>Respuesta simulada del entorno de prueba. La lectura real depende del plugin, el show y el retorno OSC.</figcaption></figure>
+<h3 id="ma3-ejecutores">Configurar los 20 ejecutores</h3>
+<p>En <b>Conexión → Avanzado</b>, ajusta <b>Página de ejecutores</b> y <b>Primer ejecutor de los 20 faders</b>. Por ejemplo, página 1 y primer ejecutor 201 corresponden a los ejecutores 201–220 de esa página.</p>
+<p>En la línea OSC de grandMA3, configura <b>Page</b>, <b>Fader</b> y <b>Key</b> como nombres de dirección y <b>FaderRange 100</b>. En Pro L abre Faders, identifica el ejecutor y mueve su tira. El pulsador envía la pulsación y su liberación al Key correspondiente. El comportamiento depende de lo asignado al ejecutor en el show.</p>
+<h3 id="ma3-problemas">Resolver problemas de grandMA3</h3>
+<dl>
+<dt><b>Las órdenes no actúan en la mesa.</b></dt><dd>Comprueba IP, interfaz, UDP, puerto, prefijo, Enable Input, Receive y Receive Command. Verifica el Fixture ID y la orden mostrada antes de pulsar Please.</dd>
+<dt><b>Las órdenes funcionan y la consulta indica “Sin respuesta del plugin”.</b></dt><dd>Revisa el nombre LXSelection en el DataPool activo, su componente Lua, Enable Output, Send, la IP del móvil, el puerto de retorno y outputLine. Comprueba el prefijo vacío de la línea de salida.</dd>
+<dt><b>La selección leída corresponde a una consulta anterior.</b></dt><dd>Pulsa otra vez Leer selección de la mesa tras cambiar la selección. La marca horaria identifica la lectura recibida.</dd>
+<dt><b>Aparecen únicamente 32 elementos.</b></dt><dd>Reduce la selección y consulta por partes para revisar los demás aparatos.</dd>
+<dt><b>Los atributos aparecen y los porcentajes difieren de la mesa.</b></dt><dd>La consulta devuelve nombres de atributos reconocidos. Los porcentajes visibles en los controles son los solicitados desde la app.</dd>
+<dt><b>El color o un parámetro no responde como esperas.</b></dt><dd>Comprueba Color Readout RGB/CMY en tu usuario, el nombre exacto del atributo y su disponibilidad en los fixtures seleccionados.</dd>
+</dl>
+<p>El perfil y esta primera versión del plugin siguen pendientes de validación completa en consola física.</p>
 <p><a href="#indice">Volver al índice del protocolo</a></p>
 </section>
 <section id="lt">
 <h2>Perfil LT</h2>
-<p>Abre las asignaciones OSC del perfil y comprueba sus correspondencias en la mesa. En Fixtures pulsa <b>Sincronizar</b> para recibir etiquetas. Ajusta Nivel o las ruedas con sus pulsadores. Los faders corresponden a S1–S20 y los pulsadores a E1–E20 según el modo Flash de LT. Para grupos rápidos, ajusta entrada y salida a cero y controla los tiempos desde Live.T en la mesa.</p>
-<h3>Canal y reproducción</h3><p>Utiliza el teclado LT con las asignaciones configuradas para la mesa. En CUE pulsa Sincronizar y consulta la etiqueta de reproducción B. Usa Go, Pause o Back según la operación que necesites.</p><h3>Comprobación de los controles</h3><p>Verifica las etiquetas y asignaciones de las ruedas y submasters antes de operar. Comprueba en la mesa el efecto de los pulsadores según su modo Flash.</p>
+<p>En la mesa activa <b>MULTIMEDIA → OSC</b>. Comprueba las direcciones de fábrica o adapta las asignaciones desde Conexión en Pro L. La entrada de mesa propuesta es <b>8000</b> y el retorno hacia la IP del móvil utiliza <b>9000</b>. Pulsa <b>Sincronizar</b> para solicitar las etiquetas y los estados que envía la mesa.</p>
+<h3>Teclado y selección</h3>
+<p>En Canal utiliza <b>Channel</b> o <b>Fixture</b> para seleccionar el objeto y confirma las órdenes con <b>OK</b>. Después de Channel, Fixture o @, el teclado muestra la ayuda de <b>.</b> para repetir la última selección o nivel correspondiente. <b>Siguiente</b> recorre la selección y <b>Test en escena</b> ejecuta la prueba de luz de la mesa. También están disponibles Rel, Reset, Home, Seq, QList y Live.T.</p>
+<h3>Fixtures y ruedas relativas</h3>
+<p>Abre Fixtures y pulsa Sincronizar. La vista muestra una rueda de <b>Nivel</b> y cuatro ruedas cuyos nombres proceden de LT. Desliza una rueda arriba o abajo o pulsa <b>−</b> y <b>+</b> para mover un paso. La función depende de la selección y de la asignación que tenga la mesa. El retorno comunica etiquetas y estados; el ajuste de las ruedas es relativo.</p>
+<figure><img loading="lazy" src="12-lt-ruedas.png" alt="Vista actual de Fixtures LT con Nivel y cuatro ruedas relativas"><figcaption>Fixtures LT. Selecciona los aparatos en la mesa o el teclado y ajusta las ruedas asignadas.</figcaption></figure>
+<h3>CUE y faders A/B</h3>
+<p>En CUE consulta la etiqueta de reproducción B y utiliza Go, Pause o Back. Para ir a una cue concreta, introduce su número y pulsa <b>Go to Cue</b>. Los faders <b>A · control local</b> y <b>B · control local</b> envían durante el recorrido y al soltar, con la escala OSC 0–255. Comprueba el resultado en la mesa.</p>
+<h3>Submasters y grupos rápidos</h3>
+<p>Los 20 faders corresponden a S1–S20 y sus pulsadores a E1–E20 según el modo Flash de LT. En <b>Estado de submasters</b> puedes consultar las etiquetas y los LEDs recibidos y usar Ejecutar o Seleccionar. Para grupos rápidos, configura entrada y salida a cero y controla los tiempos con Live.T en LT.</p>
+<h3>Retorno y recuperación</h3>
+<p>La app comprueba periódicamente el retorno y vuelve a solicitar SYNC si lo pierde. Observa los mensajes <b>Retorno LT activo</b>, <b>Recuperando retorno LT…</b> o <b>Sin retorno actual de LT · comprueba OSC y Wi-Fi</b>. Pulsa Sincronizar tras revisar la red y el envío de la mesa. La vista ofrece las etiquetas y los LEDs comunicados por LT; la consulta de una lista completa de cues, tiempos y patch queda fuera de este retorno.</p>
 <p><a href="#indice">Volver al índice del protocolo</a></p>
 </section>
 <section id="generic">

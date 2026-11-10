@@ -1,5 +1,49 @@
-<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LXSelection · Instalación en grandMA3</title><style>
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LXSelection · Instalación en grandMA3</title>
+<style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif;color:#e9eff3;background:#10171d}*{box-sizing:border-box}body{margin:0;line-height:1.7}main{max-width:900px;margin:auto;padding:48px 24px}header{padding:24px 0 44px;border-bottom:1px solid #35434d}.label{color:#8cdbed;font-size:.8rem;font-weight:700;letter-spacing:.12em}h1{font-size:clamp(2rem,7vw,3.8rem);line-height:1.08;letter-spacing:-.04em;max-width:650px}h2{font-size:2rem;line-height:1.2}h3{font-size:1.2rem;color:#8cdbed;margin-top:2rem}p{overflow-wrap:anywhere}a{color:#99e5f5;text-underline-offset:4px}a:focus-visible{outline:3px solid #ffcf80;outline-offset:5px}nav{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}nav a{border:1px solid #496370;border-radius:8px;padding:10px 16px;text-decoration:none}nav a:hover{background:#203641}section{padding:40px 0;border-bottom:1px solid #35434d;scroll-margin-top:20px}footer{padding:28px 0;color:#b1c0ca;font-size:.9rem}.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:8px;background:#10171d}@media print{:root{color:#111;background:white}nav,.skip{display:none}h3,.label,a{color:#111}main{max-width:none;padding:0}}
-code{overflow-wrap:anywhere}</style><main><h1>LXSelection para grandMA3</h1><p>Plugin opcional para consultar desde Fixtures qué aparatos están seleccionados y qué atributos reconoce la app en cada uno. El control habitual funciona por OSC sin instalarlo.</p><p><a href="LXSelection.zip" download>Descargar LXSelection (.zip)</a></p>
-<h2>Instalar en la mesa o en onPC</h2><ol><li>Descomprime el ZIP. Copia juntos LXSelection.xml y LXSelection.lua en la carpeta <code>gma3_library/datapools/plugins</code> de tu instalación o en <code>grandMA3/gma3_library/datapools/plugins</code> de una memoria USB.</li><li>Abre el pool Plugins del DataPool activo. Abre el menú de importación de una casilla libre, selecciona la unidad y el archivo LXSelection.xml e impórtalo. Conserva el nombre LXSelection.</li><li>En In &amp; Out → OSC activa Enable Input y Receive Command en la línea que recibe los comandos del móvil. Para el retorno, activa Enable Output y configura una línea UDP con Send activo, sin prefijo, con la IP del móvil y el puerto de escucha de su perfil.</li><li>El componente Lua utiliza la línea OSC 1 para responder. Si usas otra, edita el número de <code>outputLine</code> en el componente y guarda el show.</li></ol>
-<h2>Comprobar la lectura</h2><p>Necesitas una versión de la app que muestre «Leer selección de la mesa». En un show de prueba selecciona un dimmer y una cabeza móvil. En Fixtures elige «Selección de la mesa / teclado», abre la consulta opcional y pulsa el botón de lectura. Comprueba que Pan y Tilt aparecen en la cabeza móvil. Repite la consulta después de cambiar la selección.</p><p>Si falta la respuesta, comprueba el DataPool activo, el nombre del plugin, el número de línea de retorno y el puerto de escucha del móvil. Esta primera versión está pendiente de validación en consola física.</p><p><a href="https://help.malighting.com/grandMA3/2.4/HTML/plugins.html">Manual oficial de plugins de grandMA3</a></p><p><a href="../../aplicacion.html">Volver a la aplicación</a></p></main></html>
+code{overflow-wrap:anywhere}
+table{width:100%;border-collapse:collapse}th,td{padding:.5rem;border:1px solid #496370;text-align:left;overflow-wrap:anywhere}
+img{max-width:100%;height:auto}figure{margin:1rem 0}figcaption{color:#b1c0ca}
+</style></head><body><main>
+<h1>LXSelection para grandMA3</h1>
+<p>Guía actualizada el 10 de noviembre de 2026. Plugin opcional para consultar desde Pro L la selección de la mesa y los atributos reconocidos. Su primera versión está pendiente de validación completa en consola física.</p>
+<nav aria-label="Guía de LXSelection"><a href="#ma3-plugin">Instalación</a><a href="#ma3-retorno">Retorno OSC</a><a href="#ma3-lectura">Consultar selección</a></nav>
+<h3 id="ma3-plugin">Instalar el plugin opcional LXSelection</h3>
+<p>Necesitas una versión de Pro L que muestre <b>Consultar selección con plugin opcional</b> dentro de Fixtures. La instalación se realiza en la mesa o en grandMA3 onPC.</p>
+<p><a href="LXSelection.zip">Descargar LXSelection (.zip)</a> · <a href="https://controlremotelxpro.github.io/plugins/grandma3/index.html">Abrir la guía de instalación</a>.</p>
+<ol>
+<li>Descomprime el ZIP y conserva juntos <code>LXSelection.xml</code> y <code>LXSelection.lua</code>.</li>
+<li>Cópialos en <code>gma3_library/datapools/plugins</code> de la instalación, o en <code>grandMA3/gma3_library/datapools/plugins</code> de una memoria USB.</li>
+<li>En el <b>pool Plugins del DataPool activo</b>, abre el menú de importación de una casilla libre, selecciona la unidad y el archivo <code>LXSelection.xml</code> e impórtalo.</li>
+<li>Conserva el nombre exacto <b>LXSelection</b>. Revisa que su componente Lua se haya cargado y guarda el show.</li>
+</ol>
+<p>También puedes crear un plugin llamado LXSelection y pegar el contenido de <code>LXSelection.lua</code> en su primer componente Lua. El funcionamiento del pool y del editor se describe en la documentación oficial. <a href="https://help.malighting.com/grandMA3/2.4/HTML/plugins.html" target="_blank" rel="noopener noreferrer">Manual oficial de plugins de grandMA3</a>.</p>
+<h3 id="ma3-retorno">Configurar el retorno del plugin</h3>
+<ol>
+<li>En grandMA3, dentro de <b>In &amp; Out → OSC</b>, activa <b>Enable Output</b>.</li>
+<li>Crea o configura una línea UDP de salida dirigida a la <b>IP del móvil</b>. Activa <b>Send</b> y deja vacío el prefijo de esa línea.</li>
+<li>Configura su puerto con el puerto de escucha del perfil de Pro L. Un perfil nuevo utiliza <b>8001</b>. Para seguir el ejemplo siguiente, crea un perfil nuevo; los perfiles reutilizados conservan su puerto de escucha anterior.</li>
+<li>Abre el componente Lua de LXSelection y comprueba <code>local outputLine = 1</code>. Ese número debe ser el de la línea OSC que apunta al móvil. Si utilizas otra línea, cambia el número y guarda el componente y el show.</li>
+</ol>
+<table><thead><tr><th>Sentido del ejemplo</th><th>Destino</th><th>Puerto UDP</th></tr></thead><tbody><tr><td>Pro L → grandMA3</td><td>IP de la mesa u onPC</td><td>8000</td></tr><tr><td>grandMA3 → Pro L</td><td>IP del móvil</td><td>8001 en un perfil nuevo</td></tr></tbody></table>
+<p>El puerto de entrada de grandMA3 y el puerto de retorno son ajustes independientes. <code>outputLine</code> identifica una línea de la tabla OSC. Conserva en la línea de retorno el prefijo vacío que requiere la respuesta de LXSelection.</p>
+<h3 id="ma3-lectura">Leer e interpretar la selección</h3>
+<ol>
+<li>Selecciona los aparatos en grandMA3, o prepara su selección desde el teclado de Pro L.</li>
+<li>En Pro L abre <b>Fixtures → Selección de la mesa / teclado</b>.</li>
+<li>Despliega <b>Consultar selección con plugin opcional</b> y pulsa <b>Leer selección de la mesa</b>.</li>
+<li>Espera la respuesta y consulta cada fila. Repite la lectura después de cambiar la selección en la mesa.</li>
+</ol>
+<p>La respuesta muestra el <b>Fixture ID</b> cuando existe, el <b>índice de patch</b> interno y los atributos reconocidos entre <b>Dimmer, Pan, Tilt, ColorRGB_R, ColorRGB_G, ColorRGB_B, Zoom, Focus e Iris</b>. El índice ayuda a distinguir subfixtures que comparten FID. La consulta contempla hasta <b>32 elementos</b>; si la selección es mayor aparece <b>Primeros 32 elementos de la selección</b>. Una selección sin elementos devuelve <b>Selección vacía</b>. Una fila sin coincidencias puede corresponder a un aparato con otros atributos.</p>
+<p>La lectura es una instantánea solicitada con el botón. El plugin consulta la selección y los atributos disponibles mediante la API de grandMA3. El control de niveles sigue realizándose al operar los controles de la app.</p>
+<figure><img loading="lazy" src="../../manual/11-grandma3-seleccion.png" alt="Consulta opcional LXSelection con dos filas de demostración y sus atributos"><figcaption>Respuesta simulada del entorno de prueba. La lectura real depende del plugin, el show y el retorno OSC.</figcaption></figure>
+
+<h2>Si la consulta no responde</h2>
+<p>Comprueba el DataPool activo, el nombre exacto LXSelection, la carga de su componente Lua, la interfaz de red de grandMA3 y la línea OSC dirigida al móvil. Revisa Enable Input y Receive Command en la entrada, Enable Output y Send en la salida, el puerto de retorno y outputLine. La línea de retorno debe tener el prefijo vacío.</p>
+<p>Un perfil nuevo de Pro L utiliza 8001 para la escucha. Un perfil reutilizado puede conservar otro puerto. Para seguir el ejemplo de esta guía, crea un perfil nuevo de grandMA3.</p>
+<p><a href="../../manual/osc.html#grandma3">Leer el manual completo de grandMA3</a></p>
+<p><a href="../../aplicacion.html">Volver a la aplicación</a></p>
+</main></body></html>
