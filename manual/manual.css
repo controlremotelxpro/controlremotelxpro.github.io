@@ -1,12 +1,1 @@
-
-:root{color-scheme:dark}*{box-sizing:border-box}body{margin:auto;max-width:50rem;padding:1rem;background:#14181c;color:#f1f2f3;font:1rem/1.6 system-ui,sans-serif}h1,h2,h3,h4{line-height:1.2}h2{margin-top:2.4rem;border-top:1px solid #53616a;padding-top:1rem}a{color:#8de4ef}li{margin:.45rem 0}figure{margin:1rem 0}img{display:block;width:100%;max-width:32rem;height:auto}figcaption{color:#c5cdd2;margin-top:.4rem}nav ol{padding-left:1.6rem}code{overflow-wrap:anywhere}summary{cursor:pointer}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{padding:.5rem;border:1px solid #53616a;text-align:left;overflow-wrap:anywhere}@media print{body{background:white;color:black}a,figcaption{color:inherit}figure{break-inside:avoid}}
-
-html { scroll-padding-top: 1rem; }
-header > a, footer > a { display: inline-block; padding: .5rem 0; }
-footer { margin: 2rem 0; border-top: 1px solid #53616a; }
-.protocol-list { display: grid; gap: 1rem; margin: 1.5rem 0; }
-.protocol-link { display: block; padding: 1rem; border: 1px solid #53616a; border-radius: .6rem; text-decoration: none; }
-.protocol-link strong { display: block; font-size: 1.4rem; }
-.protocol-link span { display: block; color: #f1f2f3; margin-top: .4rem; }
-a:focus-visible { outline: 3px solid #8de4ef; outline-offset: 4px; }
-section { margin-bottom: 2rem; }
+@import url('../assets/docs.css');
