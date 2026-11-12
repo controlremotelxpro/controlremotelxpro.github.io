@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual OSC de OSC genérico · Control Remote Lx Pro</title>
+<link rel="stylesheet" href="../assets/docs.css">
+</head>
+<body><div class="site-bar"><a class="site-brand" href="../index.html" aria-label="Control Remote Lx Pro, inicio"><span class="site-mark">LX</span><span>CONTROL REMOTE<strong>Lx Pro.</strong></span></a><nav aria-label="Navegación principal"><a href="../index.html">Inicio</a><a href="../manual/index.html">Manual</a><a href="../plugins/grandma3/index.html">Plugin grandMA3</a><a href="../privacidad.html">Privacidad</a></nav><a class="site-contact" href="mailto:controlremotelxpro@gmail.com">Contactar ↗</a></div>
+<header><a href="osc.html">← Volver a los perfiles OSC</a><h1>Manual OSC de OSC genérico</h1><p>Configuración de receptores OSC, asignaciones y mensajes personalizados.</p></header>
+<main>
+<nav aria-label="Contenido"><h2>Contenido</h2><ol><li><a href="#conexion">Preparar el receptor</a></li>
+<li><a href="#asignaciones">Asignar controles</a></li>
+<li><a href="#prueba">Probar un mensaje personalizado</a></li>
+<li><a href="#patch">Patch y biblioteca</a></li>
+<li><a href="#oficial">Referencia de OSC</a></li></ol></nav>
+<h2 id="conexion">Preparar el receptor</h2>
+<ol>
+<li>Activa un receptor OSC por UDP en el equipo de destino y anota su IP y su puerto.</li>
+<li>En <b>Conexión → Básico</b>, elige <b>OSC → OSC genérico</b> e introduce la IP del receptor.</li>
+<li>En <b>Avanzado</b>, fija <b>Puerto OSC del receptor</b> con el puerto que escucha ese equipo. El perfil propone 8000.</li>
+<li>Configura <b>Prefijo de direcciones</b> y <b>Escala de niveles</b> para que coincidan con las asignaciones del receptor.</li>
+</ol>
+<h2 id="asignaciones">Asignar controles</h2>
+<p>Estas direcciones usan el prefijo predeterminado <code>/lx</code>. Sustituye <code>N</code> por el número del control.</p>
+<table><thead><tr><th>Control</th><th>Dirección</th><th>Argumentos</th></tr></thead><tbody>
+<tr><td>Canal</td><td><code>/lx/channel/N/level</code></td><td>Nivel decimal</td></tr>
+<tr><td>Grand Master</td><td><code>/lx/master</code></td><td>Nivel decimal</td></tr>
+<tr><td>Submaster</td><td><code>/lx/sub/N</code></td><td>Nivel decimal</td></tr>
+<tr><td>Pulsador</td><td><code>/lx/sub/N/bump</code></td><td>Entero 1 al pulsar y 0 al soltar</td></tr>
+<tr><td>Grupo</td><td><code>/lx/group/N</code></td><td>Nivel decimal y segundos de transición</td></tr>
+</tbody></table>
+<p>Un nivel del 50 % se envía como <code>50</code> con escala 0–100 o <code>0.5</code> con escala 0–1. Configura qué hace el receptor con cada dirección y con el tiempo de transición.</p>
+<h2 id="prueba">Probar un mensaje personalizado</h2>
+<ol>
+<li>En el receptor crea una asignación de prueba para <code>/lx/channel/1/level</code>.</li>
+<li>En <b>Conexión → Avanzado → Mensaje OSC personalizado</b>, escribe esa dirección y añade un argumento decimal con el nivel de prueba.</li>
+<li>Envía el mensaje y comprueba en el receptor la dirección, el tipo y el valor que llegaron. El editor permite introducir enteros, decimales, texto y booleanos en el orden que espera el receptor.</li>
+</ol>
+<p>Si el receptor no actúa, revisa la IP, el puerto UDP, el prefijo, la dirección completa y la escala. Comprueba la ejecución en el equipo de destino.</p>
+<h2 id="patch">Patch y biblioteca</h2><p>En <b>1:1</b> cada canal controla una dirección. Consulta Direccionamiento para ver la correspondencia con los universos activos. Cambiar a 1:1 conserva el Patch personalizado.</p>
+<ol>
+<li>En <b>Personalizado → Mi biblioteca LX</b>, importa tu GDTF desde <b>Importar GDTF o fixture local</b>. En las versiones que muestran GDTF Share puedes consultar su catálogo, seleccionar marca y modelo e importar una revisión.</li>
+<li>Revisa la declaración de uso y pulsa <b>Importar y revisar</b>. La personalidad queda guardada en la biblioteca local.</li>
+<li>Cierra la biblioteca y abre <b>Buscar y añadir aparato</b>. Escribe marca y modelo, despliega el modelo y toca su modo.</li>
+<li>Completa canal inicial, cantidad, universo y dirección. Para varios aparatos revisa los pasos de canal y DMX y la vista previa. Pulsa <b>Guardar</b>.</li>
+</ol>
+<p>Marca la estrella de tus modos habituales y usa <b>★ Solo favoritos</b> para encontrarlos antes. La organización sigue <b>marca → modelo → modo</b>.</p>
+<p><a href="gdtf.html">Abrir la guía completa de GDTF, Patch y búsqueda rápida</a> · <a href="gdtf.html#plantilla">Crear una personalidad desde un modo GDTF</a>.</p>
+<p>En OSC genérico, comprueba en el receptor la correspondencia entre los canales recibidos y sus funciones.</p>
+<h2 id="oficial">Referencia de OSC</h2>
+<p>Consulta la sintaxis de direcciones, tipos y argumentos. <a href="https://opensoundcontrol.stanford.edu/spec-1_0.html">Especificación Open Sound Control 1.0</a>.</p>
+
+</main>
+<footer><a href="osc.html">Volver a los perfiles OSC</a></footer>
+</body>
+</html>

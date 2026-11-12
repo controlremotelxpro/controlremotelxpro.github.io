@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual OSC de LT Hydra II y Piccolo II · Control Remote Lx Pro</title>
+<link rel="stylesheet" href="../assets/docs.css">
+</head>
+<body><div class="site-bar"><a class="site-brand" href="../index.html" aria-label="Control Remote Lx Pro, inicio"><span class="site-mark">LX</span><span>CONTROL REMOTE<strong>Lx Pro.</strong></span></a><nav aria-label="Navegación principal"><a href="../index.html">Inicio</a><a href="../manual/index.html">Manual</a><a href="../plugins/grandma3/index.html">Plugin grandMA3</a><a href="../privacidad.html">Privacidad</a></nav><a class="site-contact" href="mailto:controlremotelxpro@gmail.com">Contactar ↗</a></div>
+<header><a href="osc.html">← Volver a los perfiles OSC</a><h1>Manual OSC de LT Hydra II y Piccolo II</h1><p>Conexión System II, teclado, ruedas relativas, cues y submasters.</p></header>
+<main>
+<nav aria-label="Contenido"><h2>Contenido</h2><ol><li><a href="#conexion">Conectar Hydra II o Piccolo II</a></li>
+<li><a href="#teclado">Teclado y selección</a></li>
+<li><a href="#fixtures">Fixtures y ruedas relativas</a></li>
+<li><a href="#cue">CUE y faders A/B</a></li>
+<li><a href="#submasters">Submasters y grupos rápidos</a></li>
+<li><a href="#retorno">Retorno y recuperación</a></li>
+<li><a href="#oficial">Manual oficial Hydra II y Piccolo II</a></li></ol></nav>
+<h2 id="conexion">Conectar Hydra II o Piccolo II</h2>
+<ol>
+<li>En la mesa abre <b>MULTIMEDIA → OSC</b> y activa OSC.</li>
+<li>Configura <b>Input Port</b> en 8000, <b>Output Port</b> en 9000 y el destino de retorno con la IP del móvil.</li>
+<li>En Pro L abre <b>Conexión → Básico</b>, elige <b>OSC → LT</b>, introduce la IP de la mesa y fija <b>Puerto de recepción en la app</b> en 9000.</li>
+<li>En <b>Avanzado</b>, indica 8000 en <b>Puerto OSC del receptor</b>. Abre <b>Asignaciones OSC LT</b> si necesitas adaptar las direcciones de entrada de la mesa. Los campos vacíos usan la asignación de fábrica.</li>
+<li>En Fixtures o CUE pulsa <b>Sincronizar</b> y comprueba el estado <b>Retorno LT activo</b>.</li>
+</ol>
+<p>Los puertos anteriores corresponden al ejemplo del perfil. Si tu mesa usa otros, empareja su entrada con el puerto de destino de Pro L y su salida con el puerto de recepción del móvil.</p>
+<h2 id="teclado">Teclado y selección</h2>
+<p>En Canal utiliza <b>Channel</b> o <b>Fixture</b> para seleccionar el objeto y confirma las órdenes con <b>OK</b>. Después de Channel, Fixture o @, el teclado muestra la ayuda de <b>.</b> para repetir la última selección o nivel correspondiente. <b>Siguiente</b> recorre la selección y <b>Test en escena</b> ejecuta la prueba de luz de la mesa. También están disponibles Rel, Reset, Home, Seq, QList y Live.T.</p>
+<h2 id="fixtures">Fixtures y ruedas relativas</h2>
+<p>Abre Fixtures y pulsa Sincronizar. La vista muestra una rueda de <b>Nivel</b> y cuatro ruedas cuyos nombres proceden de LT. Desliza una rueda arriba o abajo o pulsa <b>−</b> y <b>+</b> para mover un paso. La función depende de la selección y de la asignación que tenga la mesa. El retorno comunica etiquetas y estados. El ajuste de las ruedas es relativo.</p>
+<figure><img loading="lazy" src="12-lt-ruedas.png" alt="Vista actual de Fixtures LT con Nivel y cuatro ruedas relativas"><figcaption>Fixtures LT. Selecciona los aparatos en la mesa o el teclado y ajusta las ruedas asignadas.</figcaption></figure>
+<h2 id="cue">CUE y faders A/B</h2>
+<p>En CUE consulta la etiqueta de reproducción B y utiliza Go, Pause o Back. Para ir a una cue concreta, introduce su número y pulsa <b>Go to Cue</b>. Los faders <b>A · control local</b> y <b>B · control local</b> envían durante el recorrido y al soltar, con la escala OSC 0–255. Comprueba el resultado en la mesa.</p>
+<h2 id="submasters">Submasters y grupos rápidos</h2>
+<p>Los 20 faders corresponden a S1–S20 y sus pulsadores a E1–E20 según el modo Flash de LT. En <b>Estado de submasters</b> puedes consultar las etiquetas y los LEDs recibidos y usar Ejecutar o Seleccionar. Para grupos rápidos, configura entrada y salida a cero y controla los tiempos con Live.T en LT.</p>
+<h2 id="retorno">Retorno y recuperación</h2>
+<p>La app comprueba periódicamente el retorno y vuelve a solicitar SYNC si lo pierde. Observa los mensajes <b>Retorno LT activo</b>, <b>Recuperando retorno LT…</b> o <b>Sin retorno actual de LT · comprueba OSC y Wi-Fi</b>. Pulsa Sincronizar tras revisar la red y el envío de la mesa. La vista ofrece las etiquetas y los LEDs comunicados por LT. Para consultar listas completas de cues, tiempos y patch, utiliza la mesa.</p>
+<h2 id="oficial">Manual oficial Hydra II y Piccolo II</h2>
+<p>LT publica un manual System II v7.04 para ambos modelos. Abre el capítulo de Multimedia y consulta los ajustes OSC para tu versión. <a href="https://lt-light.com/descargas/system-ii-manuales/">Manuales System II de LT</a>.</p>
+
+</main>
+<footer><a href="osc.html">Volver a los perfiles OSC</a></footer>
+</body>
+</html>

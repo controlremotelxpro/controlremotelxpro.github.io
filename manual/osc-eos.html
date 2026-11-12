@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual OSC de ETC Eos · Control Remote Lx Pro</title>
+<link rel="stylesheet" href="../assets/docs.css">
+</head>
+<body><div class="site-bar"><a class="site-brand" href="../index.html" aria-label="Control Remote Lx Pro, inicio"><span class="site-mark">LX</span><span>CONTROL REMOTE<strong>Lx Pro.</strong></span></a><nav aria-label="Navegación principal"><a href="../index.html">Inicio</a><a href="../manual/index.html">Manual</a><a href="../plugins/grandma3/index.html">Plugin grandMA3</a><a href="../privacidad.html">Privacidad</a></nav><a class="site-contact" href="mailto:controlremotelxpro@gmail.com">Contactar ↗</a></div>
+<header><a href="osc.html">← Volver a los perfiles OSC</a><h1>Manual OSC de ETC Eos</h1><p>Conexión UDP, lectura de parámetros, Patch, submasters, cues y Direct Selects.</p></header>
+<main>
+<nav aria-label="Contenido"><h2>Contenido</h2><ol><li><a href="#conexion">Configurar Eos y Pro L</a></li>
+<li><a href="#lectura">Elegir el transporte de lectura</a></li>
+<li><a href="#canal">Canal y grupos</a></li>
+<li><a href="#fixtures">Fixtures y Patch</a></li>
+<li><a href="#faders">Faders</a></li>
+<li><a href="#cue">CUE y Direct Selects</a></li>
+<li><a href="#problemas">Resolver problemas</a></li>
+<li><a href="#oficial">Documentación oficial</a></li></ol></nav>
+<h2 id="conexion">Configurar Eos y Pro L</h2>
+<ol>
+<li>En Eos abre <b>Setup → System → Show Control → OSC</b> y habilita OSC RX y OSC TX. En la interfaz de red activa UDP Strings &amp; OSC.</li>
+<li>Configura <b>OSC UDP RX Port</b> para recibir de Pro L. Como ejemplo, usa 8000.</li>
+<li>En Eos configura <b>OSC UDP TX IP Address</b> con la IP del móvil y <b>OSC UDP TX Port</b> con su puerto de recepción. El ejemplo utiliza 8001.</li>
+<li>En Pro L abre <b>Conexión → Básico</b>, selecciona <b>OSC → ETC Eos</b>, introduce la IP de Eos y fija <b>Puerto de recepción en la app</b> en 8001 para este ejemplo.</li>
+<li>En <b>Avanzado → Puerto OSC del receptor</b>, indica el puerto de entrada de Eos, 8000 en el ejemplo.</li>
+</ol>
+<figure><img loading="lazy" src="06-conexion.png" alt="Ajustes de conexión del perfil ETC Eos"><figcaption>Perfil ETC Eos con una IP de demostración. Utiliza la IP real de tu consola.</figcaption></figure>
+<h2 id="lectura">Elegir el transporte de lectura</h2>
+<p>En <b>Conexión → Avanzado → Lectura de parámetros</b>, selecciona <b>Automática</b> para usar UDP con respaldo TCP, <b>Solo UDP</b> o <b>Solo TCP</b>. Para TCP ajusta el puerto y el formato de trama a la configuración de Eos. El ejemplo para TCP estándar es 3032 con el formato seleccionado en la mesa. Si habilitas Third Party OSC en Eos y utilizas 3037, selecciona <b>OSC 1.1 · SLIP</b>.</p>
+<p>Comprueba la recepción de órdenes con un canal conocido. Consulta el mismo canal en Fixtures y abre CUE para comprobar la lectura y el retorno por separado.</p>
+<h2 id="canal">Canal y grupos</h2><p>Utiliza el teclado del perfil Eos para preparar la selección y el nivel y confirma la orden con Enter. Los grupos rápidos aplican los tiempos mediante Sneak. Grand Master actúa sobre el maestro global de Eos. Clear All libera valores manuales y los playbacks pueden seguir dando salida.</p>
+<h2 id="fixtures">Fixtures y Patch</h2><p>En Fixtures activa <b>Seguir teclado</b> para usar el canal seleccionado, o pulsa <b>Elegir canal</b> e introduce el número. Usa <b>Leer</b> o <b>Actualizar</b> para consultar sus parámetros antes de ajustarlos. Si faltan datos, revisa el retorno OSC y la lectura UDP o TCP. En Patch, pulsa <b>Actualizar patch</b> para consultar los datos de la mesa y comprueba canal, parte y dirección antes de confirmar una edición en Eos.</p><figure>
+<img loading="lazy" src="05-parametros-fixture.png" alt="Fixtures de Eos. Los parámetros y valores proceden de la respuesta de la mesa.">
+<figcaption>Fixtures de Eos. Los parámetros y valores proceden de la respuesta de la mesa.</figcaption>
+</figure>
+<h2 id="faders">Faders</h2><p>Las tiras controlan los submasters 1–20. Comprueba el número y la etiqueta antes de mover un fader. Mantén y suelta el pulsador para una acción momentánea según el comportamiento del submaster.</p>
+<h2 id="cue">CUE y Direct Selects</h2>
+<p>En CUE introduce el número de lista y carga sus cues. Pulsa Actualizar tras cambiar la lista en la mesa. Toca una fila para elegir el destino y comprueba su número antes de ejecutar el salto. Pulsa <b>Go to Cue</b> para ejecutar el salto. <b>Go</b> avanza en la lista abierta. <b>Back</b> detiene el fundido en curso o retrocede si ha terminado. <b>Out</b> envía Go to Cue Out.</p>
+<p>En DS elige el tipo de Direct Select, cambia de página y espera a que lleguen los botones de la mesa. Toca una casilla ocupada para ejecutar su selección.</p><figure>
+<img loading="lazy" src="02-cues.png" alt="CUE en Eos. Distingue la cue seleccionada de la que está en reproducción.">
+<figcaption>CUE en Eos. Distingue la cue seleccionada de la que está en reproducción.</figcaption>
+</figure>
+<h2 id="problemas">Resolver problemas</h2>
+<dl>
+<dt><b>La mesa no responde al teclado.</b></dt><dd>Revisa la IP de Eos, OSC RX, el puerto UDP de entrada y la interfaz de red.</dd>
+<dt><b>El teclado funciona y la app no recibe datos.</b></dt><dd>Revisa OSC TX, la IP del móvil y la correspondencia entre el puerto de salida de Eos y Puerto de recepción en la app. En lectura TCP comprueba además puerto y trama.</dd>
+<dt><b>La lista de cues está vacía.</b></dt><dd>Comprueba el número de lista, pulsa Actualizar y despliega Ayuda para consultar el contador de paquetes recibidos.</dd>
+</dl>
+<h2 id="oficial">Documentación oficial</h2>
+<ul><li><a href="https://www.etcconnect.com/WebDocs/Controls/EosFamilyOnlineHelp/en/Content/23_Show_Control/08_OSC/Using_OSC_with_Eos/Eos_OSC_Setup.htm">Configurar OSC en ETC Eos</a></li>
+<li><a href="https://www.etcconnect.com/webdocs/Controls/EosFamilyOnlineHelp/en/Content/07_Setup/01_System_Settings/System_Show_Control.htm">Ajustes Show Control de Eos</a></li>
+<li><a href="https://support.etcconnect.com/ETC/Consoles/Eos_Family/Software_and_Programming/TCP_port_for_OSC_communication_with_Eos_Software">Puertos TCP y Third Party OSC</a></li></ul>
+
+</main>
+<footer><a href="osc.html">Volver a los perfiles OSC</a></footer>
+</body>
+</html>
